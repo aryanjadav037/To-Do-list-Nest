@@ -29,6 +29,17 @@ export class TodosService {
     return this.todoModel.find({ title: { $regex: title, $options: 'i' }, userId }).exec();
   }
 
+  async updateTodo(id: string, userId: string, title?: string, status?: boolean): Promise<Todo | null> {
+    const updateFields: Partial<Todo> = {};
+  
+    if (title) updateFields.title = title;
+    if (status !== undefined) updateFields.status = status;
+  
+    return this.todoModel
+      .findOneAndUpdate({ _id: id, userId }, { $set: updateFields }, { new: true })
+      .exec();
+  }
+  
   async delete(id: string, userId: string): Promise<Todo | null> {
     return this.todoModel.findOneAndDelete({ _id: id, userId }).exec();
   }

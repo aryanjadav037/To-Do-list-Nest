@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable prettier/prettier */
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
@@ -21,6 +22,8 @@ export class Middleware implements NestMiddleware {
 
       // Attach user data to request object for further processing
       req.user = { userId: decoded.id, username: decoded.username };
+      // console.log('auth User:', req.user);
+      
       next();
     } catch (error) {
       return res.status(401).json(error);
