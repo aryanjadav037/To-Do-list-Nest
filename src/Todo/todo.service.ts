@@ -25,6 +25,10 @@ export class TodosService {
       .exec();
   }
 
+  async findewithtitle(title: string, userId: string): Promise<Todo[]> {
+    return this.todoModel.find({ title: { $regex: title, $options: 'i' }, userId }).exec();
+  }
+
   async delete(id: string, userId: string): Promise<Todo | null> {
     return this.todoModel.findOneAndDelete({ _id: id, userId }).exec();
   }

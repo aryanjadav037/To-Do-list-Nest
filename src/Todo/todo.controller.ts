@@ -20,6 +20,12 @@ export class TodosController {
     return todos;
   }
 
+  @Get()
+  async findWithTitle(@Request() req, @Query('title') title: string) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+    return this.todosService.findewithtitle(title, req.user.userId);
+  }
+
   @Delete(':id')
   async delete(@Request() req, @Param('id') id: string) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
